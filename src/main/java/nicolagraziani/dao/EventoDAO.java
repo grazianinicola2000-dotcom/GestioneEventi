@@ -5,6 +5,8 @@ import jakarta.persistence.EntityTransaction;
 import nicolagraziani.entities.Evento;
 import nicolagraziani.exceptions.EventNotFoundException;
 
+import java.util.UUID;
+
 public class EventoDAO {
     private final EntityManager em;
 
@@ -30,13 +32,13 @@ public class EventoDAO {
         System.out.println("l'Evento " + newEvento.getTitle() + " è stato salvato con successo!");
     }
 
-    public Evento getById(long eventId) {
-        Evento searched = em.find(Evento.class, eventId);
-        if (searched == null) throw new EventNotFoundException(eventId);
+    public Evento getById(String eventId) {
+        Evento searched = em.find(Evento.class, UUID.fromString(eventId));
+        if (searched == null) throw new EventNotFoundException(UUID.fromString(eventId));
         return searched;
     }
 
-    public void delete(long eventId) {
+    public void delete(String eventId) {
         Evento searched = this.getById(eventId);
         EntityTransaction transaction = this.em.getTransaction();
         transaction.begin();
