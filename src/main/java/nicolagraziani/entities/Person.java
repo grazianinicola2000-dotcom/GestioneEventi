@@ -3,6 +3,7 @@ package nicolagraziani.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,8 +28,9 @@ public class Person {
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false, length = 1)
     private Gender gender;
+
     @OneToMany(mappedBy = "person")
-    private List<Participation> participationList;
+    private List<Participation> participationList = new ArrayList<>();
 
     public Person() {
     }
